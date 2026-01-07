@@ -1,9 +1,8 @@
 package com.pm.patientservice.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+
+import java.time.LocalDate;
 
 public class PatientRequestDTO {
 
@@ -15,11 +14,19 @@ public class PatientRequestDTO {
     @Email(message = "Email must be valid")
     private String email;
 
+    @NotBlank(message = "Phone is required")
+    @Pattern(
+            regexp = "^01[0-2,5][0-9]{8}$",
+            message = "Phone number must be a valid Egyptian mobile number"
+    )
+    private String phone;
+
     @NotBlank(message = "Address is required")
     private String address;
 
-    @NotBlank(message = "Date of Birth is required")
-    private String dateOfBirth;
+    @NotNull(message = "Date of birth is required")
+    @Past(message = "Date of birth must be in the past")
+    private LocalDate dateOfBirth;
 
     public @NotBlank(message = "Name is required") @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters") String getName() {
         return name;
@@ -37,6 +44,20 @@ public class PatientRequestDTO {
         this.email = email;
     }
 
+    public @NotBlank(message = "Phone is required") @Pattern(
+            regexp = "^01[0-2,5][0-9]{8}$",
+            message = "Phone number must be a valid Egyptian mobile number"
+    ) String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(@NotBlank(message = "Phone is required") @Pattern(
+            regexp = "^01[0-2,5][0-9]{8}$",
+            message = "Phone number must be a valid Egyptian mobile number"
+    ) String phone) {
+        this.phone = phone;
+    }
+
     public @NotBlank(message = "Address is required") String getAddress() {
         return address;
     }
@@ -45,11 +66,11 @@ public class PatientRequestDTO {
         this.address = address;
     }
 
-    public @NotBlank(message = "Date of Birth is required") String getDateOfBirth() {
+    public @NotNull(message = "Date of Birth is required") @Past(message = "Date of birth must be in the past") LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(@NotBlank(message = "Date of Birth is required") String dateOfBirth) {
+    public void setDateOfBirth(@NotNull(message = "Date of Birth is required") @Past(message = "Date of birth must be in the past") LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 }

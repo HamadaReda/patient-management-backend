@@ -14,21 +14,22 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotNull
+    @Column(nullable = false)
     private String name;
 
-    @NotNull
-    @Email
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @NotNull
+    @Column(nullable = false, unique = true)
+    private String phone;
+
+    @Column(nullable = false)
     private String address;
 
-    @NotNull
+    @Column(nullable = false)
     private LocalDate dateOfBirth;
 
-    @NotNull
+    @Column(nullable = false)
     private LocalDate registeredDate;
 
     public UUID getId() {
@@ -39,43 +40,51 @@ public class Patient {
         this.id = id;
     }
 
-    public @NotNull String getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(@NotNull String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public @NotNull @Email String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NotNull @Email String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public @NotNull String getAddress() {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(@NotNull String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public @NotNull LocalDate getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(@NotNull LocalDate dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public @NotNull LocalDate getRegisteredDate() {
+    public LocalDate getRegisteredDate() {
         return registeredDate;
     }
 
-    public void setRegisteredDate(@NotNull LocalDate registeredDate) {
+    public void setRegisteredDate(LocalDate registeredDate) {
         this.registeredDate = registeredDate;
     }
 }

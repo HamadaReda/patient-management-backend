@@ -13,6 +13,7 @@ public class PatientMapper {
 
         patientDTO.setId(patient.getId().toString());
         patientDTO.setName(patient.getName());
+        patientDTO.setPhone(patient.getPhone());
         patientDTO.setEmail(patient.getEmail());
         patientDTO.setAddress(patient.getAddress());
         patientDTO.setDateOfBirth(patient.getDateOfBirth().toString());
@@ -24,9 +25,10 @@ public class PatientMapper {
         Patient patient = new Patient();
 
         patient.setName(patientRequestDTO.getName());
+        patient.setPhone(patientRequestDTO.getPhone());
         patient.setEmail(patientRequestDTO.getEmail());
         patient.setAddress(patientRequestDTO.getAddress());
-        patient.setDateOfBirth(LocalDate.parse(patientRequestDTO.getDateOfBirth()));
+        patient.setDateOfBirth(patientRequestDTO.getDateOfBirth());
         patient.setRegisteredDate(LocalDate.now());
 
         return patient;

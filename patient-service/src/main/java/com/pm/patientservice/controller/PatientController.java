@@ -1,5 +1,6 @@
 package com.pm.patientservice.controller;
 
+import com.pm.patientservice.common.ApiResponse;
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.service.PatientService;
@@ -23,20 +24,30 @@ public class PatientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PatientResponseDTO>> getPatients() {
+    public ResponseEntity<ApiResponse<List<PatientResponseDTO>>> getPatients() {
         List<PatientResponseDTO> patients = patientService.getPatients();
-        return ResponseEntity.ok().body(patients);
+        ApiResponse<List<PatientResponseDTO>> response = ApiResponse.success(
+                HttpStatus.OK.value(),
+                "Patients fetched successfully",
+                patients
+        );
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping
-    public ResponseEntity<PatientResponseDTO> createPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) {
+    public ResponseEntity<ApiResponse<PatientResponseDTO>> createPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) {
         PatientResponseDTO patientResponseDTO = patientService.createPatient(patientRequestDTO);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(patientResponseDTO.getId())
                 .toUri();
-        return ResponseEntity.created(location).body(patientResponseDTO);
+        ApiResponse<PatientResponseDTO> response = ApiResponse.success(
+                HttpStatus.CREATED.value(),
+                "Patient created successfully",
+                patientResponseDTO
+        );
+        return ResponseEntity.created(location).body(response);
     }
 
 }

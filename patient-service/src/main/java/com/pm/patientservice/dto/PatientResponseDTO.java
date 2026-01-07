@@ -4,6 +4,7 @@ public class PatientResponseDTO {
 
     private String id;
     private String name;
+    private String phone;
     private String email;
     private String address;
     private String dateOfBirth;
@@ -22,6 +23,14 @@ public class PatientResponseDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
