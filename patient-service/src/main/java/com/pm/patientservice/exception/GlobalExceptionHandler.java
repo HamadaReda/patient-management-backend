@@ -1,7 +1,6 @@
 package com.pm.patientservice.exception;
 
 import com.pm.patientservice.common.ApiResponse;
-import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -61,6 +60,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
+    @ExceptionHandler(PatientNotFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handlePatientNotFoundException(PatientNotFoundException ex){
+        log.warn("Patient not found: {}", ex.getMessage());
+        ApiResponse<Void> response = ApiResponse.error(
+                HttpStatus.NOT_FOUND.value(),
+                "Resource not found",
+                Map.of("error", List.of("Patient not found"))
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
     // Handle database constraint violations
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiResponse<Void>> handleDBException(DataIntegrityViolationException ex){
@@ -72,8 +82,6 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
-
-
 
     // Handle generic exception
     @ExceptionHandler(Exception.class)

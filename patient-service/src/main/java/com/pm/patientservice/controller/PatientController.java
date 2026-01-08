@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/patients")
@@ -26,10 +27,17 @@ public class PatientController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<PatientResponseDTO>>> getPatients() {
         List<PatientResponseDTO> patients = patientService.getPatients();
-        ApiResponse<List<PatientResponseDTO>> response = ApiResponse.success(
+        ApiResponse<List<PatientResponseDTO>> response = ApiResponse.success(HttpStatus.OK.value(), "Patients fetched successfully", patients);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<PatientResponseDTO>> getPatient(@PathVariable UUID id){
+        PatientResponseDTO patientResponseDTO = patientService.getPatient(id);
+        ApiResponse<PatientResponseDTO> response = ApiResponse.success(
                 HttpStatus.OK.value(),
-                "Patients fetched successfully",
-                patients
+                "Patient fetched successfully",
+                patientResponseDTO
         );
         return ResponseEntity.ok().body(response);
     }
@@ -37,17 +45,31 @@ public class PatientController {
     @PostMapping
     public ResponseEntity<ApiResponse<PatientResponseDTO>> createPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) {
         PatientResponseDTO patientResponseDTO = patientService.createPatient(patientRequestDTO);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(patientResponseDTO.getId())
-                .toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(patientResponseDTO.getId()).toUri();
+        ApiResponse<PatientResponseDTO> response = ApiResponse.success(HttpStatus.CREATED.value(), "Patient created successfully", patientResponseDTO);
+        return ResponseEntity.created(location).body(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<PatientResponseDTO>> updatePatient(@PathVariable UUID id, @Valid @RequestBody PatientRequestDTO patientRequestDTO) {
+        PatientResponseDTO patientResponseDTO = patientService.updatePatient(id, patientRequestDTO);
         ApiResponse<PatientResponseDTO> response = ApiResponse.success(
-                HttpStatus.CREATED.value(),
-                "Patient created successfully",
+                HttpStatus.OK.value(),
+                "Patient updated successfully",
                 patientResponseDTO
         );
-        return ResponseEntity.created(location).body(response);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<PatientResponseDTO>> deletePatient(@PathVariable UUID id){
+        PatientResponseDTO patientResponseDTO = patientService.deletePatient(id);
+        ApiResponse<PatientResponseDTO> response = ApiResponse.success(
+                HttpStatus.OK.value(),
+                "Patient deleted successfully",
+                patientResponseDTO
+        );
+        return ResponseEntity.ok().body(response);
     }
 
 }
