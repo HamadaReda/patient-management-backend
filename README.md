@@ -64,15 +64,13 @@ All services are containerized using **Docker**, including:
 - PostgreSQL  
 - Kafka  
 
-The system is orchestrated using **Docker Compose**.
-
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Java 17+
-- Docker & Docker Compose
+- Java 21
+- Docker
 - Maven
 
 # 🎯 Purpose of the Project
@@ -92,7 +90,10 @@ The system is orchestrated using **Docker Compose**.
 
 **Hamada Reda**  
 Java Backend / Full Stack Developer  
+Email: enghamadareda@gmail.com
+LinkedIn: https://www.linkedin.com/in/hamada-reda-5200163m
 GitHub: [https://github.com/HamadaReda](https://github.com/HamadaReda)
+
 
 
 
