@@ -90,9 +90,10 @@ All services are containerized using **Docker**, including:
 
 **Hamada Reda**  
 Java Backend / Full Stack Developer  
-Email: enghamadareda@gmail.com
-LinkedIn: https://www.linkedin.com/in/hamada-reda-5200163m
-GitHub: [https://github.com/HamadaReda](https://github.com/HamadaReda)
+- Email: enghamadareda@gmail.com
+- LinkedIn: https://www.linkedin.com/in/hamada-reda-5200163m
+- GitHub: [https://github.com/HamadaReda](https://github.com/HamadaReda)
+
 
 
 
